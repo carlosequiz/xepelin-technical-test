@@ -4,8 +4,7 @@ const cors = require("cors");
 
 // DB setup
 const MongoClient = require("mongodb").MongoClient;
-const uri =
-  "mongodb+srv://xepelintest:tuls6iSiqIBxmzTI@cluster0.sensm.mongodb.net/xepelintest?retryWrites=true&w=majority";
+const uri = "YOUR_URI_HERE!!!"
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
