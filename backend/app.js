@@ -14,7 +14,6 @@ const client = new MongoClient(uri, {
 const app = express();
 app.use(cors());
 
-
 client.connect((err) => {
   const domainCollection = client.db("xepelintest").collection("domains");
   const urlCollection = client.db("xepelintest").collection("urls");
@@ -25,10 +24,13 @@ client.connect((err) => {
   // * Respond with a list of all the domains registered in the DB.
   // * The domain should not include the protocol but includes subdomains (f.e www.xepelin.com -> xepelin.com)
   app.get("/domain", function (req, res) {
-    domainCollection.find().toArray(function (err, result) {
-      if (err) throw err;
-      res.status(200).send(result);
-    });
+    domainCollection
+      .find()
+      .sort({ last_updated: -1 })
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.status(200).send(result);
+      });
   });
 
   // * Respond with a list all the URLs registered to that domain
@@ -52,7 +54,7 @@ client.connect((err) => {
     // Storing domain
     domainCollection.findOneAndUpdate(
       { name: hostname },
-      { $set: { _id: hostname, name: hostname } },
+      { $set: { _id: hostname, name: hostname, last_updated: new Date() } },
       { upsert: true },
       function () {}
     );
