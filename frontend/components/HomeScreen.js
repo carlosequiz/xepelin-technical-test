@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { List, Button } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -33,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
     />
   ));
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Button
         mode="contained"
         onPress={() => {
@@ -43,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
         {"Shorten URL!"}
       </Button>
       <List.Section>{dataRowComponents}</List.Section>
-    </View>
+    </ScrollView>
   );
 };
 
